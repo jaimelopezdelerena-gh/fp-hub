@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken');
 const auth = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const User = require('../models/User');
+const File = require('../models/File');
 
 // @route   POST api/auth/register
 // @desc    Register user
@@ -118,8 +119,18 @@ router.put('/avatar', auth, upload.single('avatar'), async (req, res) => {
     try {
         if (!req.file) return res.status(400).json({ msg: 'No se subió archivo.' });
 
+        // Save new File in MongoDB
+        const newFile = new File({
+            filename: req.file.originalname,
+            originalName: req.file.originalname,
+            mimetype: req.file.mimetype,
+            size: req.file.size,
+            data: req.file.buffer
+        });
+        const savedFile = await newFile.save();
+
         const user = await User.findById(req.user.id).select('-password');
-        user.avatarUrl = `/uploads/${req.file.filename}`;
+        user.avatarUrl = `/api/files/view/${savedFile._id}`;
         await user.save();
         res.json(user);
     } catch (err) {

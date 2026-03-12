@@ -53,3 +53,24 @@ En este documento se detallan los errores encontrados en el proyecto, su causa y
 - Implementación de entorno seguro usando la librería `dotenv`.
 - Inyección de variables paramétricas: Sustituir `localhost:27017` por `process.env.MONGO_URI` y todos los *fetches* del cliente por `import.meta.env.VITE_API_URL`.
 **Estado Actual:** Listo para su subida a la nube separando roles (Frontend estático -> Vercel, API dinámica -> Render, DB -> MongoDB Atlas).
+
+---
+
+## 6. Error 404 al Recargar la Página en Repositorios Cloud (Vercel)
+**Problema:** Al navegar de forma nativa por la página (React Router) todo funciona correctamente, pero al recargar el navegador (F5/Refresh) en páginas anidadas como `/perfil` o `/category/asir`, Vercel devolvía un Error 404.
+**Causa:** Vercel de forma nativa busca un archivo físico para cada URL (ej: busca un archivo `asir.html` dentro de la carpeta `category/`). Al ser una Single Page Application (SPA), estas rutas son virtuales y manejadas por JS.
+**Solución Técnica:**
+- Se ha creado un archivo explícito de redirección `vercel.json` en la carpeta `frontend/`.
+- Este archivo intercepta todas las peticiones `/(.*)` que no coincidan con un archivo físico y las redirige silenciosamente al archivo de entrada principal `index.html`.
+**Estado Actual:** Las recargas funcionan globalmente en SPA alojadas estáticamente, delegando de nuevo a React el enrutamiento correcto de la URL activa.
+
+---
+
+## 7. Avatares Rotos al Actualizar Perfil de Usuario
+**Problema:** Pese a migrar correctamente el almacenamiento de fotografías, si el usuario intentaba establecerse una nueva foto de perfil, resultaba en un archivo inválido que no se mostraba.
+**Causa:** El controlador de actualización `/api/auth/avatar` internamente seguía empleando el acceso físico `req.file.filename` esperando un fichero en disco local `/uploads/`.
+**Solución Técnica:**
+- Se corrigió el endpoint del Backend, sustituyendo el parseo al modelo obsoleto por el de Memoria.
+- Se capturan las subidas interceptadas como fragmentos intermedios y se construyen en el modelo Mongoose `File`, pasándose el buffer ininterrumpido.
+- Posterior indexación del enrutado API `/api/files/view/[ID]` sobre la BD.
+**Estado Actual:** La subida de nuevos avatares se registra permanentemente en la base segura, viéndose al instante.
