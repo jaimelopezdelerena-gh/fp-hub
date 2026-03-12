@@ -4,6 +4,7 @@ const auth = require('../middleware/auth');
 const upload = require('../middleware/upload');
 const Post = require('../models/Post');
 const User = require('../models/User');
+const File = require('../models/File');
 
 // @route   POST api/posts
 // @desc    Create a post
@@ -15,18 +16,31 @@ router.post('/', auth, upload.fields([{ name: 'files', maxCount: 10 }]), async (
             try { return Buffer.from(str, 'latin1').toString('utf8'); } catch (e) { return str; }
         };
 
-        const files = req.files && req.files['files'] ? req.files['files'].map(f => ({
-            filename: f.filename,
-            originalName: decodeUtf8(f.originalname),
-            path: `/uploads/${f.filename}`,
-            mimetype: f.mimetype
-        })) : [];
+        const filesToSave = [];
+        if (req.files && req.files['files']) {
+            for (let f of req.files['files']) {
+                const newFile = new File({
+                    filename: f.originalname, // mem storage uses originalname
+                    originalName: decodeUtf8(f.originalname),
+                    mimetype: f.mimetype,
+                    size: f.size,
+                    data: f.buffer
+                });
+                const savedFile = await newFile.save();
+                filesToSave.push({
+                    filename: f.originalname,
+                    originalName: decodeUtf8(f.originalname),
+                    path: `/api/files/download/${savedFile._id}`,
+                    mimetype: f.mimetype
+                });
+            }
+        }
 
         const newPost = new Post({
             title: decodeUtf8(req.body.title),
             description: decodeUtf8(req.body.description),
             category: decodeUtf8(req.body.category),
-            files: files,
+            files: filesToSave,
             author: req.user.id
         });
 

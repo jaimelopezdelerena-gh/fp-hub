@@ -30,7 +30,7 @@ export default function RootLayout() {
     }
 
     return (
-        <div className="flex min-h-screen bg-gray-50 dark:bg-gray-950">
+        <div className="flex flex-col md:flex-row min-h-screen bg-gray-50 dark:bg-gray-950">
             <Sidebar />
             <div className="flex-1 flex flex-col md:ml-64 transition-all duration-300">
                 <main className="flex-1 w-full bg-gray-50 dark:bg-gray-950 p-4 sm:p-6 lg:p-8 overflow-x-hidden">
