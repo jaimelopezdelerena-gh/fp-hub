@@ -12,10 +12,16 @@ export default {
                     '0%, 100%': { transform: 'translateX(0)' },
                     '10%, 30%, 50%, 70%, 90%': { transform: 'translateX(-5px)' },
                     '20%, 40%, 60%, 80%': { transform: 'translateX(5px)' },
+                },
+                gradient: {
+                    '0%': { backgroundPosition: '0% 50%' },
+                    '50%': { backgroundPosition: '100% 50%' },
+                    '100%': { backgroundPosition: '0% 50%' },
                 }
             },
             animation: {
                 shake: 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                gradient: 'gradient 2s ease infinite',
             }
         },
     },

@@ -48,9 +48,9 @@ export default function Sidebar() {
         <>
             {/* Mobile Top Bar */}
             <div className="md:hidden flex items-center justify-between p-4 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 sticky top-0 z-40">
-                <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
+                <Link to="/" className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
                     ApuntesIT 24/7
-                </span>
+                </Link>
                 <div className="flex items-center gap-3">
                     <button onClick={() => setIsOpen(!isOpen)} className="p-2 text-gray-400">
                         {isOpen ? <FiX className="w-6 h-6" /> : <FiMenu className="w-6 h-6" />}
@@ -63,9 +63,9 @@ export default function Sidebar() {
                 {/* Header */}
                 <div className="h-20 flex flex-col justify-center px-6 border-b border-gray-200 dark:border-gray-800">
                     <div className="flex justify-between items-center">
-                        <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">
+                        <Link to="/" onClick={() => setIsOpen(false)} className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400 hover:from-blue-300 hover:to-indigo-300 transition-all">
                             ApuntesIT 24/7
-                        </span>
+                        </Link>
                     </div>
                 </div>
 
