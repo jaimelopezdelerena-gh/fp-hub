@@ -7,6 +7,8 @@ export default function Register() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [securityQuestion, setSecurityQuestion] = useState('');
+    const [securityAnswer, setSecurityAnswer] = useState('');
     const [error, setError] = useState('');
     const { register } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -14,8 +16,11 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        if (!securityQuestion || !securityAnswer.trim()) {
+            return setError('Debes elegir una pregunta de seguridad y escribir tu respuesta');
+        }
         try {
-            await register(name, email, password);
+            await register(name, email, password, securityQuestion, securityAnswer);
             navigate('/');
         } catch (err) {
             setError(err.message);
@@ -91,6 +96,37 @@ export default function Register() {
                                     placeholder="Contraseña"
                                 />
                             </div>
+                        </div>
+                        {/* Security Question Section */}
+                        <div className="pt-2">
+                            <label htmlFor="securityQuestion" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                                Pregunta de seguridad
+                            </label>
+                            <select
+                                id="securityQuestion"
+                                value={securityQuestion}
+                                onChange={(e) => setSecurityQuestion(e.target.value)}
+                                required
+                                className="appearance-none rounded-xl relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
+                            >
+                                <option value="" disabled>Selecciona una pregunta...</option>
+                                <option value="¿Cuál es el nombre de tu primera mascota?">¿Cuál es el nombre de tu primera mascota?</option>
+                                <option value="¿En qué ciudad naciste?">¿En qué ciudad naciste?</option>
+                                <option value="¿Cuál era el apellido de tu profesor favorito?">¿Cuál era el apellido de tu profesor favorito?</option>
+                                <option value="¿Cuál es tu equipo de deportes favorito?">¿Cuál es tu equipo de deportes favorito?</option>
+                                <option value="¿Cuál es el segundo apellido de tu madre?">¿Cuál es el segundo apellido de tu madre?</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input
+                                id="securityAnswer"
+                                type="text"
+                                required
+                                value={securityAnswer}
+                                onChange={(e) => setSecurityAnswer(e.target.value)}
+                                className="appearance-none rounded-xl relative block w-full px-3 py-3 border border-gray-300 dark:border-gray-700 placeholder-gray-500 text-gray-900 dark:text-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
+                                placeholder="Tu respuesta secreta"
+                            />
                         </div>
                     </div>
 

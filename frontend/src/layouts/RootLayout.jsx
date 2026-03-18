@@ -9,8 +9,7 @@ export default function RootLayout() {
     const { user, loading } = useContext(AuthContext);
     const isAuthPage = location.pathname === '/login' || 
                        location.pathname === '/register' || 
-                       location.pathname === '/forgot-password' || 
-                       location.pathname.startsWith('/reset-password');
+                       location.pathname === '/forgot-password';
 
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-950 text-gray-500">Cargando...</div>;

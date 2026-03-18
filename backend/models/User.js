@@ -11,8 +11,8 @@ const UserSchema = new mongoose.Schema({
     points: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now },
     likedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
-    resetPasswordToken: String,
-    resetPasswordExpire: Date
+    securityQuestion: { type: String, required: false },
+    securityAnswer: { type: String, required: false }
 });
 
 module.exports = mongoose.model('User', UserSchema);

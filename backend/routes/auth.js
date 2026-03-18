@@ -11,7 +11,7 @@ const File = require('../models/File');
 // @desc    Register user
 // @access  Public
 router.post('/register', async (req, res) => {
-    const { name, email, password } = req.body;
+    const { name, email, password, securityQuestion, securityAnswer } = req.body;
 
     try {
         let user = await User.findOne({ email });
@@ -24,7 +24,8 @@ router.post('/register', async (req, res) => {
             name,
             email,
             password,
-            // Default avatar color logic based on first letter or random could go here
+            securityQuestion: securityQuestion || '',
+            securityAnswer: securityAnswer ? await bcrypt.hash(securityAnswer.toLowerCase().trim(), 10) : ''
         });
 
         const salt = await bcrypt.genSalt(10);
@@ -158,7 +159,7 @@ router.put('/banner', auth, async (req, res) => {
 });
 
 // @route   POST api/auth/forgot-password
-// @desc    Send password reset email
+// @desc    Get security question for an email
 // @access  Public
 router.post('/forgot-password', async (req, res) => {
     try {
@@ -166,61 +167,38 @@ router.post('/forgot-password', async (req, res) => {
         if (!user) {
             return res.status(404).json({ msg: 'No se encontró un usuario con ese correo electrónico' });
         }
-
-        // Generate raw token
-        const resetToken = require('crypto').randomBytes(20).toString('hex');
-
-        // Note: In a true prod app this should be hashed in the DB, but since its a school project plain hex is fine for simplicity
-        user.resetPasswordToken = resetToken;
-        user.resetPasswordExpire = Date.now() + 10 * 60 * 1000; // 10 minutes
-
-        await user.save();
-
-        const resetUrl = `${process.env.FRONTEND_URL || 'http://localhost:5173'}/reset-password/${resetToken}`;
-        const message = `Estás recibiendo este correo porque tú (u otra persona) ha solicitado restablecer la contraseña de tu cuenta de ApuntesIT.\n\nPor favor, haz clic en el siguiente enlace para completar el proceso:\n\n${resetUrl}\n\nSi no lo solicitaste, simplemente ignora este correo.`;
-
-        try {
-            const sendEmail = require('../utils/sendEmail');
-            await sendEmail({
-                email: user.email,
-                subject: 'Recuperación de Contraseña - ApuntesIT',
-                message
-            });
-            res.json({ msg: 'Correo enviado correctamente' });
-        } catch (error) {
-            console.error(error);
-            user.resetPasswordToken = undefined;
-            user.resetPasswordExpire = undefined;
-            await user.save();
-            return res.status(500).json({ msg: 'Fallo al enviar el correo. ¿Están bien las credenciales SMTP en el .env?' });
+        if (!user.securityQuestion) {
+            return res.status(400).json({ msg: 'Este usuario es antiguo y no tiene configurada una pregunta de seguridad' });
         }
 
+        res.json({ securityQuestion: user.securityQuestion });
     } catch (err) {
         console.error(err.message);
         res.status(500).send('Server Error');
     }
 });
 
-// @route   POST api/auth/reset-password/:token
-// @desc    Reset password using token
+// @route   POST api/auth/reset-password
+// @desc    Reset password using security answer
 // @access  Public
-router.post('/reset-password/:token', async (req, res) => {
+router.post('/reset-password', async (req, res) => {
     try {
-        const user = await User.findOne({
-            resetPasswordToken: req.params.token,
-            resetPasswordExpire: { $gt: Date.now() }
-        });
+        const { email, answer, newPassword } = req.body;
+        const user = await User.findOne({ email });
 
-        if (!user) {
-            return res.status(400).json({ msg: 'El token de recuperación es inválido o ha caducado' });
+        if (!user || !user.securityAnswer) {
+            return res.status(400).json({ msg: 'Usuario inválido o sin pregunta configurada' });
         }
 
+        // Verify answer
+        const isMatch = await bcrypt.compare(answer.toLowerCase().trim(), user.securityAnswer);
+        if (!isMatch) {
+            return res.status(400).json({ msg: 'La respuesta de seguridad es incorrecta' });
+        }
+
+        // Update password
         const salt = await bcrypt.genSalt(10);
-        user.password = await bcrypt.hash(req.body.password, salt);
-
-        user.resetPasswordToken = undefined;
-        user.resetPasswordExpire = undefined;
-
+        user.password = await bcrypt.hash(newPassword, salt);
         await user.save();
 
         res.json({ msg: 'Contraseña restablecida con éxito' });
