@@ -71,7 +71,7 @@ export default function Profile() {
         const refreshProfile = async () => {
             if (!token) return;
             try {
-                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth`, { headers: { 'x-auth-token': token } });
+                const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/me`, { headers: { 'x-auth-token': token } });
                 if (res.ok) setUser(await res.json());
             } catch (err) { }
         };
