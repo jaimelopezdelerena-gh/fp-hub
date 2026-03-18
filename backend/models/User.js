@@ -10,7 +10,9 @@ const UserSchema = new mongoose.Schema({
     bannerColor: { type: String, default: 'from-blue-500 to-indigo-600' },
     points: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now },
-    likedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
+    likedPosts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }],
+    resetPasswordToken: String,
+    resetPasswordExpire: Date
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -3,6 +3,8 @@ import RootLayout from './layouts/RootLayout';
 import Home from './pages/Home/Home';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import ForgotPassword from './pages/Auth/ForgotPassword';
+import ResetPassword from './pages/Auth/ResetPassword';
 import Category from './pages/Category/Category';
 import Post from './pages/Post/Post';
 import About from './pages/Other/About';
@@ -19,6 +21,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+          <Route path="reset-password/:token" element={<ResetPassword />} />
           <Route path="about" element={<About />} />
           <Route path="profile" element={<Profile />} />
           <Route path="user/:id" element={<PublicProfile />} />

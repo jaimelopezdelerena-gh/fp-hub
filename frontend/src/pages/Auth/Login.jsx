@@ -10,19 +10,24 @@ export default function Login() {
     const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    const [shake, setShake] = useState(false);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        setShake(false);
         try {
             await login(email, password);
             navigate('/');
         } catch (err) {
             setError(err.message);
+            setShake(true);
+            setTimeout(() => setShake(false), 500); // Remove shake class after animation
         }
     };
     return (
         <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-900 p-10 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 transition-all">
+            <div className={`max-w-md w-full space-y-8 bg-white dark:bg-gray-900 p-10 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 transition-all ${shake ? 'animate-shake border-red-500 shadow-red-500/20' : ''}`}>
                 <div>
                     <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
                         Iniciar Sesión
@@ -50,7 +55,7 @@ export default function Login() {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="appearance-none rounded-xl relative block w-full px-3 py-3 pl-10 border border-gray-300 dark:border-gray-700 placeholder-gray-500 text-gray-900 dark:text-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-colors"
+                                    className={`appearance-none rounded-xl relative block w-full px-3 py-3 pl-10 border placeholder-gray-500 text-gray-900 dark:text-white dark:bg-gray-800 focus:outline-none focus:ring-2 sm:text-sm transition-colors ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500 bg-red-50 dark:bg-red-900/10' : 'border-gray-300 dark:border-gray-700 focus:ring-blue-500 focus:border-blue-500'}`}
                                     placeholder="Correo electrónico"
                                 />
                             </div>
@@ -68,7 +73,7 @@ export default function Login() {
                                     required
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    className="appearance-none rounded-xl relative block w-full px-3 py-3 pl-10 border border-gray-300 dark:border-gray-700 placeholder-gray-500 text-gray-900 dark:text-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm transition-colors"
+                                    className={`appearance-none rounded-xl relative block w-full px-3 py-3 pl-10 border placeholder-gray-500 text-gray-900 dark:text-white dark:bg-gray-800 focus:outline-none focus:ring-2 sm:text-sm transition-colors ${error ? 'border-red-500 focus:ring-red-500 focus:border-red-500 bg-red-50 dark:bg-red-900/10' : 'border-gray-300 dark:border-gray-700 focus:ring-blue-500 focus:border-blue-500'}`}
                                     placeholder="Contraseña"
                                 />
                             </div>
@@ -89,9 +94,9 @@ export default function Login() {
                         </div>
 
                         <div className="text-sm">
-                            <a href="#" className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+                            <Link to="/forgot-password" className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
                                 ¿Olvidaste tu contraseña?
-                            </a>
+                            </Link>
                         </div>
                     </div>
 

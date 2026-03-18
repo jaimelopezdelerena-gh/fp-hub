@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
-import { FiHome, FiUser, FiHeart, FiSettings, FiLogOut, FiMenu, FiX } from 'react-icons/fi';
+import { FiHome, FiUser, FiHeart, FiSettings, FiLogOut, FiMenu, FiX, FiMoon, FiSun } from 'react-icons/fi';
 import { AuthContext } from '../context/AuthContext';
 import ConfirmModal from './ConfirmModal';
 
@@ -9,11 +9,26 @@ export default function Sidebar() {
     const location = useLocation();
     const { logout, user } = useContext(AuthContext);
 
-    // Force Dark mode logic
+    const [isDarkMode, setIsDarkMode] = useState(() => {
+        if (typeof window !== 'undefined') {
+            return localStorage.theme !== 'light';
+        }
+        return true;
+    });
+
     useEffect(() => {
-        document.documentElement.classList.add('dark');
-        localStorage.setItem('theme', 'dark');
-    }, []);
+        if (isDarkMode) {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+        }
+    }, [isDarkMode]);
+
+    const toggleTheme = () => {
+        setIsDarkMode(!isDarkMode);
+    };
 
     const [showLogoutModal, setShowLogoutModal] = useState(false);
 
@@ -77,8 +92,17 @@ export default function Sidebar() {
                     })}
                 </nav>
 
-                {/* Bottom Section (Logout) */}
-                <div className="p-4 border-t border-gray-200 dark:border-gray-800">
+                {/* Bottom Section (Logout & Theme) */}
+                <div className="p-4 border-t border-gray-200 dark:border-gray-800 space-y-2">
+                    <button
+                        onClick={toggleTheme}
+                        className="w-full flex items-center justify-between px-4 py-3 text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800 rounded-xl font-medium transition-colors"
+                    >
+                        <div className="flex items-center gap-3">
+                            {isDarkMode ? <FiSun className="w-5 h-5" /> : <FiMoon className="w-5 h-5" />}
+                            <span>Modo {isDarkMode ? 'Claro' : 'Oscuro'}</span>
+                        </div>
+                    </button>
                     <button
                         onClick={() => setShowLogoutModal(true)}
                         className="w-full flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20 rounded-xl font-medium transition-colors"
