@@ -158,6 +158,26 @@ router.put('/banner', auth, async (req, res) => {
     }
 });
 
+// @route   PUT api/auth/security-question
+// @desc    Set or update security question for legacy users
+// @access  Private
+router.put('/security-question', auth, async (req, res) => {
+    try {
+        const { securityQuestion, securityAnswer } = req.body;
+        if (!securityQuestion || !securityAnswer) {
+            return res.status(400).json({ msg: 'Pregunta y respuesta son obligatorias' });
+        }
+        const user = await User.findById(req.user.id).select('-password');
+        user.securityQuestion = securityQuestion;
+        user.securityAnswer = await bcrypt.hash(securityAnswer.toLowerCase().trim(), 10);
+        await user.save();
+        res.json(user);
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send('Server error');
+    }
+});
+
 // @route   POST api/auth/forgot-password
 // @desc    Get security question for an email
 // @access  Public

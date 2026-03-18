@@ -32,6 +32,13 @@ export default function Profile() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [postToDelete, setPostToDelete] = useState(null);
 
+    // Security Question Setup (for legacy users)
+    const [sqQuestion, setSqQuestion] = useState('');
+    const [sqAnswer, setSqAnswer] = useState('');
+    const [sqError, setSqError] = useState('');
+    const [sqSaving, setSqSaving] = useState(false);
+    const [sqDismissed, setSqDismissed] = useState(false);
+
     useEffect(() => {
         const fetchUserPosts = async () => {
             if (!token) return;
@@ -196,6 +203,69 @@ export default function Profile() {
     ];
     return (
         <div className="max-w-4xl mx-auto py-8">
+
+            {/* Security Question Banner for Legacy Users */}
+            {user && !user.securityQuestion && !sqDismissed && (
+                <div className="mb-6 bg-amber-50 dark:bg-amber-900/20 border border-amber-300 dark:border-amber-700 rounded-2xl p-5 shadow-lg">
+                    <div className="flex items-start gap-3 mb-3">
+                        <FiShield className="w-6 h-6 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
+                        <div className="flex-1">
+                            <h3 className="font-bold text-amber-900 dark:text-amber-200 text-base">Configura tu Pregunta de Seguridad</h3>
+                            <p className="text-sm text-amber-700 dark:text-amber-400 mt-1">Tu cuenta no tiene una pregunta de seguridad. Confígurala para poder recuperar tu contraseña si la olvidas.</p>
+                        </div>
+                        <button onClick={() => setSqDismissed(true)} className="text-amber-500 hover:text-amber-700 dark:hover:text-amber-300 transition-colors"><FiX className="w-5 h-5" /></button>
+                    </div>
+                    {sqError && <p className="text-sm text-red-600 dark:text-red-400 mb-2">{sqError}</p>}
+                    <div className="space-y-3">
+                        <select
+                            value={sqQuestion}
+                            onChange={(e) => setSqQuestion(e.target.value)}
+                            className="w-full rounded-xl px-3 py-2.5 border border-amber-300 dark:border-amber-700 text-sm text-gray-900 dark:text-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                        >
+                            <option value="" disabled>Selecciona una pregunta...</option>
+                            <option value="¿Cuál es el nombre de tu primera mascota?">¿Cuál es el nombre de tu primera mascota?</option>
+                            <option value="¿En qué ciudad naciste?">¿En qué ciudad naciste?</option>
+                            <option value="¿Cuál era el apellido de tu profesor favorito?">¿Cuál era el apellido de tu profesor favorito?</option>
+                            <option value="¿Cuál es tu equipo de deportes favorito?">¿Cuál es tu equipo de deportes favorito?</option>
+                            <option value="¿Cuál es el segundo apellido de tu madre?">¿Cuál es el segundo apellido de tu madre?</option>
+                        </select>
+                        <input
+                            type="text"
+                            value={sqAnswer}
+                            onChange={(e) => setSqAnswer(e.target.value)}
+                            className="w-full rounded-xl px-3 py-2.5 border border-amber-300 dark:border-amber-700 placeholder-gray-500 text-sm text-gray-900 dark:text-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-amber-500"
+                            placeholder="Tu respuesta secreta"
+                        />
+                        <button
+                            disabled={sqSaving}
+                            onClick={async () => {
+                                setSqError('');
+                                if (!sqQuestion || !sqAnswer.trim()) { setSqError('Rellena ambos campos'); return; }
+                                setSqSaving(true);
+                                try {
+                                    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/security-question`, {
+                                        method: 'PUT',
+                                        headers: { 'Content-Type': 'application/json', 'x-auth-token': token },
+                                        body: JSON.stringify({ securityQuestion: sqQuestion, securityAnswer: sqAnswer })
+                                    });
+                                    if (res.ok) {
+                                        const updated = await res.json();
+                                        setUser(updated);
+                                    } else {
+                                        const d = await res.json();
+                                        setSqError(d.msg || 'Error al guardar');
+                                    }
+                                } catch { setSqError('Error de conexión'); }
+                                finally { setSqSaving(false); }
+                            }}
+                            className="w-full py-2.5 bg-amber-500 hover:bg-amber-600 text-white rounded-xl text-sm font-semibold transition-colors shadow-md disabled:opacity-70"
+                        >
+                            {sqSaving ? 'Guardando...' : 'Guardar Pregunta de Seguridad'}
+                        </button>
+                    </div>
+                </div>
+            )}
+
             {/* Header Profile */}
             <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-800 mb-8 relative overflow-hidden">
                 <div className={`absolute top-0 left-0 w-full h-32 bg-gradient-to-r ${bannerColor} transition-all duration-500`}></div>
