@@ -65,7 +65,7 @@ export default function Likes() {
 
             {/* List of liked posts */}
             <div className="space-y-6">
-                {loading ? <Loader message="Cargando tus apuntes favoritos..." /> : null}
+                {loading ? <div className="py-8 text-center text-gray-500 animate-pulse">Cargando tus apuntes favoritos...</div> : null}
                 {!loading && filteredLikes.length === 0 && <div className="text-center text-gray-500 dark:text-gray-400 p-10 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800">No se encontraron referencias.</div>}
                 {filteredLikes.map((post) => (
                     <Link key={post._id} to={`/post/${post._id}`} className="block group">

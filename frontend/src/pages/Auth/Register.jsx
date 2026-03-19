@@ -16,8 +16,8 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        if (name.includes(' ')) {
-            return setError('El nombre de usuario no puede contener espacios');
+        if (!/^[a-zA-Z0-9_\-]+$/.test(name)) {
+            return setError('El nombre solo puede contener letras (sin acentos), números, guiones y barras bajas');
         }
         if (name.length > 15) {
             return setError('El nombre de usuario no puede tener más de 15 caracteres');

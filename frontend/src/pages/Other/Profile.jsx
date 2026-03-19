@@ -357,7 +357,7 @@ export default function Profile() {
                         </h2>
 
                         <div className="space-y-4">
-                            {loadingPosts ? <div className="py-8"><Loader message="Cargando tus apuntes..." /></div> : null}
+                            {loadingPosts ? <div className="py-8 text-center text-gray-500 animate-pulse">Cargando tus apuntes...</div> : null}
                             {!loadingPosts && userPosts.length === 0 && <p className="text-gray-500 text-sm">No has subido apuntes aún.</p>}
 
                             {userPosts.map(post => (
