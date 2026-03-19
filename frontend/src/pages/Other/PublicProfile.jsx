@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FiShield, FiStar, FiFileText, FiHeart, FiArrowLeft } from 'react-icons/fi';
+import Loader from '../../components/Loader';
 
 export default function PublicProfile() {
     const { id } = useParams();
@@ -27,7 +28,7 @@ export default function PublicProfile() {
         fetchUserData();
     }, [id]);
 
-    if (loading) return <div className="p-10 text-center dark:text-white">Cargando perfil público...</div>;
+    if (loading) return <Loader message="Cargando perfil público..." />;
     if (!profileUser) return <div className="p-10 text-center text-red-500">Usuario no encontrado.</div>;
 
     const getRankInfo = (points) => {

@@ -2,6 +2,7 @@ import { FiUser, FiMail, FiEdit2, FiShield, FiStar, FiFileText, FiUpload, FiX, F
 import { useContext, useState, useRef, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import ConfirmModal from '../../components/ConfirmModal';
+import Loader from '../../components/Loader';
 import { Link } from 'react-router-dom';
 
 export default function Profile() {
@@ -192,7 +193,7 @@ export default function Profile() {
         }
     };
 
-    if (!user) return <div className="p-10 text-center dark:text-white">Cargando perfil...</div>;
+    if (!user) return <Loader message="Cargando tu perfil..." />;
 
     const colors = [
         'from-blue-500 to-indigo-600',
@@ -356,7 +357,7 @@ export default function Profile() {
                         </h2>
 
                         <div className="space-y-4">
-                            {loadingPosts ? <p className="text-gray-500 text-sm">Cargando tus apuntes...</p> : null}
+                            {loadingPosts ? <div className="py-8"><Loader message="Cargando tus apuntes..." /></div> : null}
                             {!loadingPosts && userPosts.length === 0 && <p className="text-gray-500 text-sm">No has subido apuntes aún.</p>}
 
                             {userPosts.map(post => (

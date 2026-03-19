@@ -14,6 +14,9 @@ router.post('/register', async (req, res) => {
     const { name, email, password, securityQuestion, securityAnswer } = req.body;
 
     try {
+        if (name.includes(' ') || name.length > 15) {
+            return res.status(400).json({ msg: 'El nombre de usuario no puede tener espacios y debe tener un máximo de 15 caracteres' });
+        }
         let user = await User.findOne({ email });
 
         if (user) {

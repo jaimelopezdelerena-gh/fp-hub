@@ -2,6 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { FiDownload, FiThumbsUp, FiThumbsDown, FiEye, FiClock, FiFileText, FiUpload, FiX, FiArrowLeft } from 'react-icons/fi';
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import Loader from '../../components/Loader';
 
 export default function Category() {
     const { id } = useParams();
@@ -151,7 +152,7 @@ export default function Category() {
 
                 {/* Post List */}
                 <div className="space-y-6">
-                    {loading ? <p className="text-center text-gray-500 dark:text-gray-400">Cargando publicaciones...</p> : null}
+                    {loading ? <div className="py-8"><Loader message="Cargando publicaciones..." /></div> : null}
                     {!loading && posts.length === 0 && <p className="text-center text-gray-500 dark:text-gray-400 p-10 bg-white dark:bg-gray-900 rounded-2xl">Aún no hay apuntes en esta categoría. ¡Sé el primero en subir uno!</p>}
                     {posts.map(testPost => (
                         <Link key={testPost._id} to={`/post/${testPost._id}`} className="block group">

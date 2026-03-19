@@ -2,6 +2,7 @@ import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { FiThumbsUp, FiThumbsDown, FiEye, FiDownload, FiUser, FiCalendar, FiBook, FiArrowLeft, FiAlertTriangle, FiFlag, FiX, FiCheck } from 'react-icons/fi';
 import { AuthContext } from '../../context/AuthContext';
+import Loader from '../../components/Loader';
 
 export default function Post() {
     const { id } = useParams();
@@ -85,7 +86,7 @@ export default function Post() {
         }
     };
 
-    if (loading) return <div className="p-10 text-center dark:text-white">Cargando...</div>;
+    if (loading) return <Loader message="Cargando detalles del apunte..." />;
     if (error) return <div className="p-10 text-center text-red-500">{error}</div>;
 
     const hasLiked = post.likes?.includes(user?.id) || post.likes?.includes(user?._id);

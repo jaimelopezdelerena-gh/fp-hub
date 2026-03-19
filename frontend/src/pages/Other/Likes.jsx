@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { FiHeart, FiStar, FiClock, FiFileText, FiSearch } from 'react-icons/fi';
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
+import Loader from '../../components/Loader';
 
 export default function Likes() {
     const { token } = useContext(AuthContext);
@@ -64,7 +65,7 @@ export default function Likes() {
 
             {/* List of liked posts */}
             <div className="space-y-6">
-                {loading ? <div className="text-center text-gray-500 dark:text-gray-400">Cargando likes...</div> : null}
+                {loading ? <Loader message="Cargando tus apuntes favoritos..." /> : null}
                 {!loading && filteredLikes.length === 0 && <div className="text-center text-gray-500 dark:text-gray-400 p-10 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800">No se encontraron referencias.</div>}
                 {filteredLikes.map((post) => (
                     <Link key={post._id} to={`/post/${post._id}`} className="block group">

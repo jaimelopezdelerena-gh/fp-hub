@@ -2,6 +2,7 @@ import { FiUsers, FiActivity, FiShield, FiTrash2, FiAlertTriangle, FiCheck, FiX,
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
+import Loader from '../../components/Loader';
 
 export default function Admin() {
     const { token, user, loading: authLoading } = useContext(AuthContext);
@@ -92,7 +93,7 @@ export default function Admin() {
 
     const filteredUsers = users.filter(u => u.name.toLowerCase().includes(searchUser.toLowerCase()) || u.email.toLowerCase().includes(searchUser.toLowerCase()));
 
-    if (authLoading || loading) return <div className="p-10 text-center text-gray-500">Cargando Panel de Control...</div>;
+    if (authLoading || loading) return <Loader message="Cargando Panel de Control..." />;
 
     const statsCards = [
         { title: 'Usuarios Totales', value: stats.totalUsers, icon: <FiUsers className="w-6 h-6" />, color: 'bg-blue-500' },
@@ -107,15 +108,15 @@ export default function Admin() {
             </Link>
 
             {/* Header */}
-            <div className="bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700 rounded-3xl p-10 mb-10 text-white shadow-xl">
+            <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-3xl p-10 mb-10 shadow-sm transition-colors">
                 <div className="flex justify-between items-center">
                     <div>
-                        <h1 className="text-4xl font-extrabold mb-2 flex items-center gap-3">
-                            <FiShield className="text-blue-400" /> Panel de Control
+                        <h1 className="text-4xl font-extrabold mb-2 flex items-center gap-3 text-gray-900 dark:text-white">
+                            <FiShield className="text-blue-500 dark:text-blue-400" /> Panel de Control
                         </h1>
-                        <p className="text-gray-300 text-lg">Administración global del repositorio</p>
+                        <p className="text-gray-500 dark:text-gray-400 text-lg">Administración global del repositorio</p>
                     </div>
-                    <span className="hidden sm:inline-flex bg-red-500/20 text-red-100 border border-red-500/30 px-4 py-2 rounded-lg font-mono text-sm">
+                    <span className="hidden sm:inline-flex bg-red-100 text-red-700 dark:bg-red-500/20 dark:text-red-100 border border-red-200 dark:border-red-500/30 px-4 py-2 rounded-lg font-mono text-sm">
                         Nivel: {user?.role}
                     </span>
                 </div>

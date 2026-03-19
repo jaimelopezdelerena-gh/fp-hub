@@ -16,6 +16,12 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
+        if (name.includes(' ')) {
+            return setError('El nombre de usuario no puede contener espacios');
+        }
+        if (name.length > 15) {
+            return setError('El nombre de usuario no puede tener más de 15 caracteres');
+        }
         if (!securityQuestion || !securityAnswer.trim()) {
             return setError('Debes elegir una pregunta de seguridad y escribir tu respuesta');
         }
@@ -55,9 +61,10 @@ export default function Register() {
                                     type="text"
                                     required
                                     value={name}
-                                    onChange={(e) => setName(e.target.value)}
+                                    onChange={(e) => setName(e.target.value.replace(/\s/g, ''))}
+                                    maxLength={15}
                                     className="appearance-none rounded-xl relative block w-full px-3 py-3 pl-10 border border-gray-300 dark:border-gray-700 placeholder-gray-500 text-gray-900 dark:text-white dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-colors"
-                                    placeholder="Nombre y Apellidos"
+                                    placeholder="NombreDeUsuario"
                                 />
                             </div>
                         </div>
