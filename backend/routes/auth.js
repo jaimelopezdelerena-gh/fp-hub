@@ -14,8 +14,8 @@ router.post('/register', async (req, res) => {
     const { name, email, password, securityQuestion, securityAnswer } = req.body;
 
     try {
-        if (!/^[a-zA-Z0-9_\-]+$/.test(name) || name.length > 15) {
-            return res.status(400).json({ msg: 'El nombre solo puede contener letras sin acentos, números, guiones y máximo 15 caracteres' });
+        if (!/^[\p{L}0-9_\-]+$/u.test(name) || name.length > 15) {
+            return res.status(400).json({ msg: 'El nombre solo puede contener letras, números, guiones, barras bajas y máximo 15 caracteres (sin espacios)' });
         }
         let user = await User.findOne({ email });
 
