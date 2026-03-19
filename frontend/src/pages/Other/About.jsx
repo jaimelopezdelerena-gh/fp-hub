@@ -1,9 +1,9 @@
-﻿import { FiCode, FiHeart, FiArrowLeft } from 'react-icons/fi';
+import { FiCode, FiHeart, FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 export default function About() {
     return (
-        <div className="min-h-[80vh] flex items-center bg-gray-50 dark:bg-gray-950 py-12">
+        <div className="min-h-[80vh] flex items-center py-12">
             <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <div className="text-left w-full mb-4">
                     <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 transition-colors">

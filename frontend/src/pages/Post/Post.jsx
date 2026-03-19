@@ -1,4 +1,4 @@
-﻿import { useParams, Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { FiThumbsUp, FiThumbsDown, FiEye, FiDownload, FiUser, FiCalendar, FiBook, FiArrowLeft, FiAlertTriangle, FiFlag, FiX, FiCheck } from 'react-icons/fi';
 import { AuthContext } from '../../context/AuthContext';
@@ -93,7 +93,7 @@ export default function Post() {
     const hasDisliked = post.dislikes?.includes(user?.id) || post.dislikes?.includes(user?._id);
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12">
+        <div className="min-h-screen py-12">
             <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Breadcrumb Navigation */}
                 <Link

@@ -1,4 +1,4 @@
-﻿import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { FiDownload, FiThumbsUp, FiThumbsDown, FiEye, FiClock, FiFileText, FiUpload, FiX, FiArrowLeft } from 'react-icons/fi';
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
@@ -93,7 +93,7 @@ export default function Category() {
     };
 
     return (
-        <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12">
+        <div className="min-h-screen py-12">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-400 mb-6 transition-colors">
                     <FiArrowLeft /> Volver al Inicio
