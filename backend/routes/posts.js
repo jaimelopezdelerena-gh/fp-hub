@@ -37,9 +37,9 @@ router.post('/', auth, upload.fields([{ name: 'files', maxCount: 10 }]), async (
         }
 
         const newPost = new Post({
-            title: decodeUtf8(req.body.title),
-            description: decodeUtf8(req.body.description),
-            category: decodeUtf8(req.body.category),
+            title: req.body.title,
+            description: req.body.description,
+            category: req.body.category,
             files: filesToSave,
             author: req.user.id
         });
