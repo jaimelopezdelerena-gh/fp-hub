@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+﻿import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { FiHome, FiUser, FiHeart, FiSettings, FiLogOut, FiMenu, FiX, FiMoon, FiSun } from 'react-icons/fi';
 import { AuthContext } from '../context/AuthContext';
@@ -134,3 +134,4 @@ export default function Sidebar() {
         </>
     );
 }
+

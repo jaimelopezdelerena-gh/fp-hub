@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+﻿import { Link } from 'react-router-dom';
 import { FiHeart, FiStar, FiClock, FiFileText, FiSearch } from 'react-icons/fi';
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
@@ -66,10 +66,10 @@ export default function Likes() {
             {/* List of liked posts */}
             <div className="space-y-6">
                 {loading ? <div className="py-8 text-center text-gray-500 animate-pulse">Cargando tus apuntes favoritos...</div> : null}
-                {!loading && filteredLikes.length === 0 && <div className="text-center text-gray-500 dark:text-gray-400 p-10 bg-white dark:bg-gray-900 rounded-3xl border border-gray-100 dark:border-gray-800">No se encontraron referencias.</div>}
+                {!loading && filteredLikes.length === 0 && <div className="text-center text-gray-500 dark:text-gray-400 p-10 bg-white dark:bg-gray-900 rounded-3xl border border-gray-200 dark:border-gray-800">No se encontraron referencias.</div>}
                 {filteredLikes.map((post) => (
                     <Link key={post._id} to={`/post/${post._id}`} className="block group">
-                        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-800 transition-all cursor-pointer transform hover:-translate-y-1">
+                        <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm hover:shadow-xl border border-gray-200 dark:border-gray-800 transition-all cursor-pointer transform hover:-translate-y-1">
                             <div className="flex justify-between items-start mb-4">
                                 <div className="flex items-center gap-3">
                                     <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl text-white shadow-sm shrink-0 overflow-hidden relative ${post.author?.avatarColor || 'bg-blue-500'}`}>
@@ -96,7 +96,7 @@ export default function Likes() {
 
                             <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{post.title}</h2>
 
-                            <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800 pt-4 mt-4">
+                            <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 pt-4 mt-4">
                                 <div className="flex gap-6">
                                     <span className="flex items-center gap-2 text-pink-500">
                                         <FiHeart className="w-4 h-4 fill-current" /> Liked
@@ -113,3 +113,4 @@ export default function Likes() {
         </div>
     );
 }
+

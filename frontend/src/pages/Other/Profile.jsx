@@ -1,4 +1,4 @@
-import { FiUser, FiMail, FiEdit2, FiShield, FiStar, FiFileText, FiUpload, FiX, FiTrash2, FiHeart, FiInfo } from 'react-icons/fi';
+﻿import { FiUser, FiMail, FiEdit2, FiShield, FiStar, FiFileText, FiUpload, FiX, FiTrash2, FiHeart, FiInfo } from 'react-icons/fi';
 import { useContext, useState, useRef, useEffect } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import ConfirmModal from '../../components/ConfirmModal';
@@ -268,7 +268,7 @@ export default function Profile() {
             )}
 
             {/* Header Profile */}
-            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-800 mb-8 relative overflow-hidden">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-800 mb-8 relative overflow-hidden">
                 <div className={`absolute top-0 left-0 w-full h-32 bg-gradient-to-r ${bannerColor} transition-all duration-500`}></div>
                 <div className="relative z-10 pt-16 flex flex-col sm:flex-row items-center sm:items-end gap-6">
                     <input type="file" accept="image/*" className="hidden" ref={fileInputRef} onChange={handleAvatarChange} />
@@ -311,8 +311,8 @@ export default function Profile() {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {/* Left Column (Info) */}
                 <div className="space-y-8">
-                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
-                        <h2 className="text-lg font-bold text-gray-900 dark:text-white border-b border-gray-100 dark:border-gray-800 pb-4 mb-4">
+                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
+                        <h2 className="text-lg font-bold text-gray-900 dark:text-white border-b border-gray-200 dark:border-gray-800 pb-4 mb-4">
                             Información Personal
                         </h2>
                         <div className="space-y-4">
@@ -351,7 +351,7 @@ export default function Profile() {
 
                 {/* Right Column (Activity) */}
                 <div className="md:col-span-2 space-y-8">
-                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                             <FiFileText className="text-blue-500" /> Mis Últimos Apuntes Subidos
                         </h2>
@@ -361,7 +361,7 @@ export default function Profile() {
                             {!loadingPosts && userPosts.length === 0 && <p className="text-gray-500 text-sm">No has subido apuntes aún.</p>}
 
                             {userPosts.map(post => (
-                                <div key={post._id} className="p-4 rounded-xl border border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors flex justify-between items-center gap-4">
+                                <div key={post._id} className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors flex justify-between items-center gap-4">
                                     <div className="flex-1 min-w-0">
                                         <div className="flex justify-between items-start mb-2">
                                             <Link to={`/post/${post._id}`} className="font-semibold text-gray-900 dark:text-white truncate pr-2 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
@@ -494,8 +494,8 @@ export default function Profile() {
             {/* Ranking Modal */}
             {showRankingModal && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-                    <div className="bg-white dark:bg-gray-950 rounded-3xl shadow-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col relative animate-fade-in-up border border-gray-100 dark:border-gray-800">
-                        <div className="p-6 border-b border-gray-100 dark:border-gray-800 flex justify-between items-center sticky top-0 bg-white dark:bg-gray-950 z-10">
+                    <div className="bg-white dark:bg-gray-950 rounded-3xl shadow-xl w-full max-w-2xl max-h-[85vh] overflow-hidden flex flex-col relative animate-fade-in-up border border-gray-200 dark:border-gray-800">
+                        <div className="p-6 border-b border-gray-200 dark:border-gray-800 flex justify-between items-center sticky top-0 bg-white dark:bg-gray-950 z-10">
                             <h2 className="text-2xl font-extrabold text-gray-900 dark:text-white">Salón de la Fama</h2>
                             <button onClick={() => setShowRankingModal(false)} className="text-gray-500 hover:text-gray-900 dark:hover:text-white">
                                 <FiX className="w-6 h-6" />
@@ -510,7 +510,7 @@ export default function Profile() {
                                 else if (u.points >= 500) { title = 'Principiante'; icon = '🎓'; color = 'text-yellow-500'; bg = 'bg-yellow-100 dark:bg-yellow-900/30'; }
 
                                 return (
-                                    <Link to={`/user/${u._id}`} key={u._id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors last:border-0 gap-4 group">
+                                    <Link to={`/user/${u._id}`} key={u._id} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 border-b border-gray-200 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors last:border-0 gap-4 group">
                                         <div className="flex items-center gap-4">
                                             <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg text-white shadow-sm shrink-0 overflow-hidden relative ${u.avatarColor || 'bg-blue-500'}`}>
                                                 {u.avatarUrl ? (
@@ -553,3 +553,4 @@ export default function Profile() {
         </div>
     );
 }
+

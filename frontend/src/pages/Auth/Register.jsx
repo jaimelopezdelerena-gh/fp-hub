@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom';
+﻿import { Link, useNavigate } from 'react-router-dom';
 import { FiUser, FiMail, FiLock, FiArrowRight } from 'react-icons/fi';
 import { useState, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
@@ -34,7 +34,7 @@ export default function Register() {
     };
     return (
         <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-900 p-10 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 transition-all">
+            <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-900 p-10 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 transition-all">
                 <div>
                     <h2 className="mt-2 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
                         Crear Cuenta
@@ -156,3 +156,4 @@ export default function Register() {
         </div>
     );
 }
+

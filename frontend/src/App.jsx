@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+﻿import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import RootLayout from './layouts/RootLayout';
 import Home from './pages/Home/Home';
 import Login from './pages/Auth/Login';
@@ -35,3 +35,4 @@ function App() {
 }
 
 export default App;
+

@@ -1,11 +1,11 @@
-import { FiAlertTriangle, FiX } from 'react-icons/fi';
+﻿import { FiAlertTriangle, FiX } from 'react-icons/fi';
 
 export default function ConfirmModal({ isOpen, title, message, onConfirm, onCancel, confirmText = 'Confirmar', cancelText = 'Cancelar', isDestructive = false }) {
     if (!isOpen) return null;
 
     return (
         <div className="fixed inset-0 bg-black/50 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
-            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-sm w-full relative shadow-2xl border border-gray-100 dark:border-gray-800">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-sm w-full relative shadow-2xl border border-gray-200 dark:border-gray-800">
                 <button onClick={onCancel} className="absolute top-4 right-4 text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                     <FiX className="w-6 h-6" />
                 </button>
@@ -29,3 +29,4 @@ export default function ConfirmModal({ isOpen, title, message, onConfirm, onCanc
         </div>
     );
 }
+

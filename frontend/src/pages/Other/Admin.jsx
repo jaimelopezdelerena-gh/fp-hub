@@ -1,4 +1,4 @@
-import { FiUsers, FiActivity, FiShield, FiTrash2, FiAlertTriangle, FiCheck, FiX, FiArrowLeft } from 'react-icons/fi';
+﻿import { FiUsers, FiActivity, FiShield, FiTrash2, FiAlertTriangle, FiCheck, FiX, FiArrowLeft } from 'react-icons/fi';
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
@@ -125,7 +125,7 @@ export default function Admin() {
             {/* Stats Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
                 {statsCards.map((stat, idx) => (
-                    <div key={idx} className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 flex items-center gap-6">
+                    <div key={idx} className="bg-white dark:bg-gray-900 p-6 rounded-2xl shadow-sm border border-gray-200 dark:border-gray-800 flex items-center gap-6">
                         <div className={`w-14 h-14 rounded-xl flex items-center justify-center text-white ${stat.color} shadow-lg`}>
                             {stat.icon}
                         </div>
@@ -139,8 +139,8 @@ export default function Admin() {
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Content Moderation */}
-                <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-sm border border-gray-100 dark:border-gray-800 h-fit">
-                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
+                <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-sm border border-gray-200 dark:border-gray-800 h-fit">
+                    <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 border-b border-gray-200 dark:border-gray-800 pb-4">
                         Alertas de Moderación
                     </h2>
                     <div className="space-y-4">
@@ -169,8 +169,8 @@ export default function Admin() {
                 </div>
 
                 {/* Account Registrations */}
-                <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-sm border border-gray-100 dark:border-gray-800 h-fit">
-                    <div className="flex justify-between items-center mb-6 border-b border-gray-100 dark:border-gray-800 pb-4">
+                <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-sm border border-gray-200 dark:border-gray-800 h-fit">
+                    <div className="flex justify-between items-center mb-6 border-b border-gray-200 dark:border-gray-800 pb-4">
                         <h2 className="text-xl font-bold text-gray-900 dark:text-white">
                             Gestión de Cuentas
                         </h2>
@@ -214,7 +214,7 @@ export default function Admin() {
             {/* User Delete Modal */}
             {userModal.show && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in-up">
-                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-md w-full relative shadow-2xl border border-gray-100 dark:border-gray-800">
+                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-md w-full relative shadow-2xl border border-gray-200 dark:border-gray-800">
                         <button onClick={() => setUserModal({ show: false, userId: null, userName: '' })} className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 dark:hover:text-white">
                             <FiX className="w-6 h-6" />
                         </button>
@@ -242,7 +242,7 @@ export default function Admin() {
             {/* Report Action Modal */}
             {reportModal.show && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in-up">
-                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-md w-full relative shadow-2xl border border-gray-100 dark:border-gray-800">
+                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-md w-full relative shadow-2xl border border-gray-200 dark:border-gray-800">
                         <button onClick={() => setReportModal({ show: false, postId: null, status: null, actionText: '' })} className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 dark:hover:text-white">
                             <FiX className="w-6 h-6" />
                         </button>
@@ -269,3 +269,4 @@ export default function Admin() {
         </div>
     );
 }
+

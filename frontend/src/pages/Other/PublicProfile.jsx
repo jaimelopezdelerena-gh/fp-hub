@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { FiShield, FiStar, FiFileText, FiHeart, FiArrowLeft } from 'react-icons/fi';
 import Loader from '../../components/Loader';
@@ -47,7 +47,7 @@ export default function PublicProfile() {
             </Link>
 
             {/* Header Profile */}
-            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-800 mb-8 relative overflow-hidden">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-800 mb-8 relative overflow-hidden">
                 <div className={`absolute top-0 left-0 w-full h-32 bg-gradient-to-r ${profileUser.bannerColor || 'from-blue-500 to-indigo-600'} transition-all duration-500`}></div>
                 <div className="relative z-10 pt-16 flex flex-col sm:flex-row items-center sm:items-end gap-6">
                     <div className="w-32 h-32 rounded-full border-4 border-white dark:border-gray-900 flex items-center justify-center shadow-lg relative overflow-hidden isolate" style={{ backgroundColor: profileUser.avatarColor || '#3b82f6' }}>
@@ -67,7 +67,7 @@ export default function PublicProfile() {
                         <p className="text-gray-500 dark:text-gray-400 font-medium capitalize mt-1">Miembro desde: {new Date(profileUser.createdAt).toLocaleDateString()}</p>
                     </div>
 
-                    <div className="text-center bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-100 dark:border-gray-800">
+                    <div className="text-center bg-gray-50 dark:bg-gray-800/50 p-4 rounded-2xl border border-gray-200 dark:border-gray-800">
                         <div className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 dark:from-blue-400 dark:to-indigo-400">
                             {profileUser.points || 0}
                         </div>
@@ -77,7 +77,7 @@ export default function PublicProfile() {
             </div>
 
             {/* User Posts */}
-            <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-sm border border-gray-100 dark:border-gray-800">
+            <div className="bg-white dark:bg-gray-900 rounded-3xl p-6 shadow-sm border border-gray-200 dark:border-gray-800">
                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                     <FiFileText className="text-blue-500" /> Apuntes Subidos por {profileUser.name}
                 </h2>
@@ -86,7 +86,7 @@ export default function PublicProfile() {
                     {userPosts.length === 0 && <p className="text-gray-500 text-sm italic col-span-2">Este usuario no ha subido ningún apunte público aún.</p>}
 
                     {userPosts.map(post => (
-                        <Link key={post._id} to={`/post/${post._id}`} className="p-5 rounded-2xl border border-gray-100 dark:border-gray-800 hover:shadow-xl dark:bg-gray-800/30 hover:-translate-y-1 transition-all">
+                        <Link key={post._id} to={`/post/${post._id}`} className="p-5 rounded-2xl border border-gray-200 dark:border-gray-800 hover:shadow-xl dark:bg-gray-800/30 hover:-translate-y-1 transition-all">
                             <div className="flex items-center gap-3 mb-4">
                                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-sm relative overflow-hidden shrink-0 ${post.author?.avatarColor || 'bg-blue-500'}`}>
                                     {post.author?.avatarUrl ? (
@@ -112,3 +112,4 @@ export default function PublicProfile() {
         </div>
     );
 }
+

@@ -1,4 +1,4 @@
-import { FiCode, FiHeart, FiArrowLeft } from 'react-icons/fi';
+﻿import { FiCode, FiHeart, FiArrowLeft } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 
 export default function About() {
@@ -23,7 +23,7 @@ export default function About() {
                     <p>
                         Esta plataforma inicialmente se había diseñado para las entregas de la asignatura de Lenguaje de Marcas.
                     </p>
-                    <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl shadow-xl mt-10 border border-gray-100 dark:border-gray-800">
+                    <div className="bg-white dark:bg-gray-900 p-8 rounded-3xl shadow-xl mt-10 border border-gray-200 dark:border-gray-800">
                         <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 flex items-center justify-center gap-2">
                             El objetivo de la página.
                         </h3>
@@ -42,3 +42,4 @@ export default function About() {
         </div>
     );
 }
+

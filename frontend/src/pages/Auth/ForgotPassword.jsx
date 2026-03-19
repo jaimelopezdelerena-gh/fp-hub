@@ -1,4 +1,4 @@
-import { useState } from 'react';
+﻿import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FiMail, FiArrowLeft, FiCheckCircle, FiAlertCircle, FiLock, FiShield } from 'react-icons/fi';
 
@@ -75,7 +75,7 @@ export default function ForgotPassword() {
 
     return (
         <div className="min-h-[80vh] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
-            <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-900 p-10 rounded-3xl shadow-2xl border border-gray-100 dark:border-gray-800 transition-all">
+            <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-900 p-10 rounded-3xl shadow-2xl border border-gray-200 dark:border-gray-800 transition-all">
 
                 {/* Header */}
                 <div>
@@ -201,3 +201,4 @@ export default function ForgotPassword() {
         </div>
     );
 }
+

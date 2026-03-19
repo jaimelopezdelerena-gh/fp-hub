@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom';
+﻿import { Link, useParams } from 'react-router-dom';
 import { FiDownload, FiThumbsUp, FiThumbsDown, FiEye, FiClock, FiFileText, FiUpload, FiX, FiArrowLeft } from 'react-icons/fi';
 import { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../../context/AuthContext';
@@ -156,7 +156,7 @@ export default function Category() {
                     {!loading && posts.length === 0 && <p className="text-center text-gray-500 dark:text-gray-400 p-10 bg-white dark:bg-gray-900 rounded-2xl">Aún no hay apuntes en esta categoría. ¡Sé el primero en subir uno!</p>}
                     {posts.map(testPost => (
                         <Link key={testPost._id} to={`/post/${testPost._id}`} className="block group">
-                            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm hover:shadow-xl border border-gray-100 dark:border-gray-800 transition-all cursor-pointer transform hover:-translate-y-1">
+                            <div className="bg-white dark:bg-gray-900 rounded-2xl p-6 shadow-sm hover:shadow-xl border border-gray-200 dark:border-gray-800 transition-all cursor-pointer transform hover:-translate-y-1">
                                 <div className="flex justify-between items-start mb-4">
                                     <div className="flex items-center gap-3">
                                         <div className={`w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-xl shadow-sm relative overflow-hidden shrink-0 ${testPost.author?.avatarColor || 'bg-blue-500'}`}>
@@ -184,7 +184,7 @@ export default function Category() {
                                 <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{testPost.title}</h2>
                                 <p className="text-gray-600 dark:text-gray-300 line-clamp-2 mb-6">{testPost.description}</p>
 
-                                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 border-t border-gray-100 dark:border-gray-800 pt-4">
+                                <div className="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400 border-t border-gray-200 dark:border-gray-800 pt-4">
                                     <div className="flex gap-6">
                                         <span className="flex items-center gap-2 hover:text-blue-600 transition-colors">
                                             <FiEye className="w-4 h-4" /> {testPost.views}
@@ -208,3 +208,4 @@ export default function Category() {
         </div>
     );
 }
+

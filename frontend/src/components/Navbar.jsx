@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+﻿import { Link, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 
@@ -126,3 +126,4 @@ export default function Navbar() {
         </nav>
     );
 }
+

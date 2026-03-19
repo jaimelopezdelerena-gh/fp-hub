@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+﻿import { useParams, Link } from 'react-router-dom';
 import { useState, useEffect, useContext } from 'react';
 import { FiThumbsUp, FiThumbsDown, FiEye, FiDownload, FiUser, FiCalendar, FiBook, FiArrowLeft, FiAlertTriangle, FiFlag, FiX, FiCheck } from 'react-icons/fi';
 import { AuthContext } from '../../context/AuthContext';
@@ -104,7 +104,7 @@ export default function Post() {
                 </Link>
 
                 {/* Post Header */}
-                <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-100 dark:border-gray-800 mb-8 transition-colors">
+                <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-xl border border-gray-200 dark:border-gray-800 mb-8 transition-colors">
                     <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
                         <div className="flex gap-4 items-center">
                             <span className="px-4 py-1.5 rounded-full text-sm font-bold bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300">
@@ -126,7 +126,7 @@ export default function Post() {
                         {post.title}
                     </h1>
 
-                    <div className="flex items-center gap-4 py-6 border-y border-gray-100 dark:border-gray-800">
+                    <div className="flex items-center gap-4 py-6 border-y border-gray-200 dark:border-gray-800">
                         <Link to={`/user/${post.author?._id}`} className="w-14 h-14 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg relative overflow-hidden shrink-0 transition-transform hover:scale-105 group border-2 border-transparent hover:border-blue-400">
                             <div className={`absolute inset-0 w-full h-full ${post.author?.avatarColor || 'bg-blue-500'} -z-10`}></div>
                             {post.author?.avatarUrl ? (
@@ -144,7 +144,7 @@ export default function Post() {
                     </div>
 
                     {/* Content Details */}
-                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-sm border border-gray-100 dark:border-gray-800 transition-colors mt-8">
+                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 shadow-sm border border-gray-200 dark:border-gray-800 transition-colors mt-8">
                         <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-3">
                             <FiBook className="text-blue-500" />
                             Descripción del Material
@@ -170,7 +170,7 @@ export default function Post() {
                         </div>
 
                         {/* Voting Section */}
-                        <div className="flex justify-center sm:justify-start gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-100 dark:border-gray-800">
+                        <div className="flex justify-center sm:justify-start gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-2xl border border-gray-200 dark:border-gray-800">
                             <button
                                 onClick={() => handleVote('like')}
                                 className={`flex items-center gap-2 px-6 py-3 rounded-xl font-bold transition-all duration-300 ${hasLiked
@@ -202,7 +202,7 @@ export default function Post() {
             {/* Custom Report Modal */}
             {showReportModal && (
                 <div className="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-fade-in-up">
-                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-md w-full relative shadow-2xl border border-gray-100 dark:border-gray-800">
+                    <div className="bg-white dark:bg-gray-900 rounded-3xl p-8 max-w-md w-full relative shadow-2xl border border-gray-200 dark:border-gray-800">
                         <button onClick={() => { setShowReportModal(false); setReportSuccess(false); }} className="absolute top-4 right-4 text-gray-500 hover:text-gray-900 dark:hover:text-white">
                             <FiX className="w-6 h-6" />
                         </button>
@@ -262,3 +262,4 @@ export default function Post() {
         </div>
     );
 }
+

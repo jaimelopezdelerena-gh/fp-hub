@@ -1,4 +1,4 @@
-export default function Loader({ message = 'Cargando contenido...' }) {
+﻿export default function Loader({ message = 'Cargando contenido...' }) {
     return (
         <div className="flex-1 min-h-[80vh] flex items-center justify-center p-8">
             <div className="flex flex-col items-center gap-3">
@@ -12,3 +12,4 @@ export default function Loader({ message = 'Cargando contenido...' }) {
         </div>
     );
 }
+
